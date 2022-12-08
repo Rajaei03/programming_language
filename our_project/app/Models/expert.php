@@ -19,4 +19,19 @@ class Expert extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function day()
+    {
+        return $this->belongsTo(day::class);
+    }
+
+    public function duration()
+    {
+        return $this->hasMany(duration::class);
+    }
+
+    public function experience()
+    {
+        return $this->hasMany(experience::class);
+    }
 }

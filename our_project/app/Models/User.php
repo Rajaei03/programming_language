@@ -48,8 +48,8 @@ class User extends Authenticatable
     ];
 
 
-    public function profile()
+    public function expert()
     {
         return $this->hasOne(expert::class);
     }
-}
+}                       
