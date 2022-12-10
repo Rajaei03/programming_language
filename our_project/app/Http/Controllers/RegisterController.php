@@ -10,13 +10,13 @@ use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
 {
-    public function register(Request $request)
+    public function registerUser(Request $request)
     {
         $fields = $request->validate(
             [
                 'name'=>'required|string',
                 'email'=>'required|string|unique:users,email',
-                'password'=>'required|string',
+                'password'=>'required|string|min:6',
                 'phone1'=>'required|string',
                 'isExp'=>'required'
             ]
@@ -30,7 +30,7 @@ class RegisterController extends Controller
                 'balance'=>500,
                 'isExp'=>$fields['isExp']
             ]);
-            $token = $user->createToken('experttoken')->plainTextToken;
+            $token = $user->createToken('loginToken')->plainTextToken;
             $response = [
                 'user'=>$user,
                 'token'=>$token

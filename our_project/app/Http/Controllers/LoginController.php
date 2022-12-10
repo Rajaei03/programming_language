@@ -16,17 +16,22 @@ class LoginController extends Controller
             'password' => ['required','string','min:6']
         ]);
 
-        $user = User::where('email', $validated['email'])->first();
 
-        if(!$user || !Hash::check($validated['password'], $user->passwprd)){
+        if(!Auth::attempt($request->only(['email','password']))){
             return response([
-                'message' => 'bad creds'
+                'message' => "bad cred"
             ],401);
         }
 
+         $user = User::where('email', $validated['email'])->first();
 
 
-        $token = $user->createToken('myToken')->plainTextToken;
+
+        
+
+
+
+        $token = $user->createToken('loginToken')->plainTextToken;
 
         $resp = [
             'user' => $user,
