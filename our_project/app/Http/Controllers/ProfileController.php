@@ -15,7 +15,8 @@ class ProfileController extends Controller
         ];
 
         return response()->json([
-            
-        ]);
+            'status' => 'request successful',
+            'data' => $resp
+        ],201);
     }
 }

@@ -35,9 +35,14 @@ class RegisterController extends Controller
                 'user'=>$user,
                 'token'=>$token
             ];
-            return response($response , 201);
+            return response()->json(
+                [
+                    'status' => 'rigestered successful',
+                    'data' => $response
+                ]
+            ,201 );
     }
-
+    
     public function index()
     {
         return User::all();
