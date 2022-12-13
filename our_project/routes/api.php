@@ -4,6 +4,7 @@ use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,3 +56,4 @@ Route::post('/login',[LoginController::class ,'login']);
 //obada routes
 Route::post('/register' , [RegisterController::class,'register']);
 Route::get('/register' ,[RegisterController::class , 'index']);
+Route::get('/profile/{id}',[ProfileController::class ,'profile']);

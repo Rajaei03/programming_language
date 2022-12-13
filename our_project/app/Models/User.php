@@ -50,7 +50,7 @@ class User extends Authenticatable
 
     public function expert()
     {
-        return $this->hasOne(expert::class);
-        
+        return $this->belongsTo(expert::class);
+
     }
 }
