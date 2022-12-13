@@ -27,7 +27,7 @@ class LoginController extends Controller
 
 
 
-        
+
 
 
 
@@ -38,8 +38,17 @@ class LoginController extends Controller
             'token' => $token
         ];
 
-        return response($resp,201);
+        return response()->json([
+            'status' => 'request successful',
+            'data' => $resp
+        ],201);
 
 
+    }
+
+
+    public function logout()
+    {
+        //
     }
 }
