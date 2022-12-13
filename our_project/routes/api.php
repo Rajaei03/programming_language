@@ -53,7 +53,10 @@ Route::post('/login',[LoginController::class ,'login']);
 
 
 
+
+
+
 //obada routes
-Route::post('/register' , [RegisterController::class,'register']);
+Route::post('/register' , [RegisterController::class,'registerUser']);
 Route::get('/register' ,[RegisterController::class , 'index']);
 Route::get('/profile/{id}',[ProfileController::class ,'profile']);
