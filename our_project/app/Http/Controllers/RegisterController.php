@@ -42,7 +42,7 @@ class RegisterController extends Controller
                 ]
             ,201 );
     }
-    
+
     public function index()
     {
         return User::all();

@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('durations', function (Blueprint $table) {
             $table->id();
+            $table->foreignId(column:'user_id')->references('user_id')->on('experts')->onDelete('cascade');
             $table->integer('from');
             $table->integer('to');
             $table->timestamps();
