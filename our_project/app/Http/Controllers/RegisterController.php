@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Day;
+use App\Models\Duration;
 use App\Models\Experience;
 use App\Models\User;
 use App\Models\Expert;
@@ -40,7 +42,7 @@ class RegisterController extends Controller
             ];
             return response()->json(
                 [
-                    'status' => 'rigestered successful',
+                    'status' => 1,
                     'data' => $response
                 ]
             ,201 );
@@ -81,7 +83,9 @@ class RegisterController extends Controller
             ]);
 
 
-            $expert = Expert::create([
+
+
+             $expert = Expert::create([
                 'user_id'=> $user->id,
                 'country'=>$fields['country'],
                 'city'=>$fields['city'],
@@ -91,6 +95,7 @@ class RegisterController extends Controller
             $WorksDays = $fields['days'];
 
             $days = Day::create([
+                'user_id'=> $user->id,
                 'sunday' => $WorksDays[0],
                 'monday' => $WorksDays[1],
                 'tuesday' => $WorksDays[2],
@@ -100,18 +105,65 @@ class RegisterController extends Controller
                 'saturday' => $WorksDays[6]
             ]);
 
-            $userCats = $fields['categories'];
-            $experiences = [];
-            for($i=0;$i<sizeof($userCats);$i++){
-                if($userCats[$i]->id<=5){
-                    $experiences[$i] = Experience::create([
+            $expertCats = $fields['categories'];
+            $experiences = array();
+            //var_dump($expertCats);
+             for($i=0;$i<sizeof($expertCats);$i++){
+                 if($expertCats[$i]['category_id']<=5){
+                    $experiences[] = Experience::create([
                         'user_id' => $user->id,
-                        'category_id' => $userCats[$i]->id,
-                        'price' => $userCats[$i]->price,
-                        
+                        'category_id' => $expertCats[$i]['category_id'],
+                        'price' => $expertCats[$i]['price'],
+
+                    ]);
+                }else{
+                    $cat=Category::Create([
+                        'name' => $expertCats[$i]['name']
+                    ]);
+                    $experiences[] = Experience::Create([
+                        'user_id' => $user->id,
+                        'category_id' => $cat->id,
+                        'price' => $expertCats[$i]['price'],
                     ]);
                 }
             }
+
+
+
+            $expertDuration =$fields['durations'];
+            $durations = array();
+            for($i=0;$i<sizeof($expertDuration);$i++){
+                $durations[]=Duration::create([
+                    'user_id' => $user->id,
+                    'from' => $expertDuration[$i]['from'],
+                    'to' => $expertDuration[$i]['to'],
+
+                ]);
+            }
+
+            $token = $user->createToken('loginToken')->plainTextToken;
+
+
+            $response = [
+
+                'expertInfo' => $expert,
+                'days' => $days,
+                'experiences' => $experiences,
+                'duration' => $durations,
+            ];
+
+            $expertGo = [
+                'user' => $user,
+                'expert' => $response,
+                'token'=>$token
+
+            ];
+            return response()->json(
+                [
+                    'status' => true,
+                    'data' => $expertGo
+                ]
+            ,201 );
 
 
     }

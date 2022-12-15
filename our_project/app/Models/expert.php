@@ -10,6 +10,7 @@ class Expert extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'country',
         'city',
         'skills'

@@ -29,7 +29,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('/login',[LoginController::class ,'login']);
 Route::get('/home',[HomeController::class ,'home']);
-
+Route::post('/registerExpert' , [RegisterController::class,'registerExpert']);
 
 
 
