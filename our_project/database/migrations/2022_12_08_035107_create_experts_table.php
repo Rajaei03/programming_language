@@ -14,6 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('experts', function (Blueprint $table) {
+           // $table->id();
             $table->foreignId(column:'user_id')->constrained();
             $table->string('country');
             $table->string('city');

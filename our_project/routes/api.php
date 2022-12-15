@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -27,7 +28,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('/login',[LoginController::class ,'login']);
-
+Route::get('/home',[HomeController::class ,'home']);
+Route::post('/registerExpert' , [RegisterController::class,'registerExpert']);
 
 
 
@@ -57,6 +59,6 @@ Route::post('/login',[LoginController::class ,'login']);
 
 
 //obada routes
-Route::post('/register' , [RegisterController::class,'registerUser']);
+Route::post('/registerUser' , [RegisterController::class,'registerUser']);
 Route::get('/register' ,[RegisterController::class , 'index']);
 Route::get('/profile/{id}',[ProfileController::class ,'profile']);
