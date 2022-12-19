@@ -42,7 +42,8 @@ class RegisterController extends Controller
             ];
             return response()->json(
                 [
-                    'status' => 1,
+                    'message' => "registered successfully",
+                    'status' => true,
                     'data' => $response
                 ]
             ,201 );
@@ -85,7 +86,7 @@ class RegisterController extends Controller
 
 
 
-             $expert = Expert::create([
+            $expert = Expert::create([
                 'user_id'=> $user->id,
                 'country'=>$fields['country'],
                 'city'=>$fields['city'],
@@ -108,8 +109,8 @@ class RegisterController extends Controller
             $expertCats = $fields['categories'];
             $experiences = array();
             //var_dump($expertCats);
-             for($i=0;$i<sizeof($expertCats);$i++){
-                 if($expertCats[$i]['category_id']<=5){
+            for($i=0;$i<sizeof($expertCats);$i++){
+                if($expertCats[$i]['category_id']<=5){
                     $experiences[] = Experience::create([
                         'user_id' => $user->id,
                         'category_id' => $expertCats[$i]['category_id'],
@@ -160,6 +161,7 @@ class RegisterController extends Controller
             ];
             return response()->json(
                 [
+                    'message' => "registered successfully",
                     'status' => true,
                     'data' => $expertGo
                 ]

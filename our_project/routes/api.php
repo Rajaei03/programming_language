@@ -62,3 +62,4 @@ Route::post('/registerExpert' , [RegisterController::class,'registerExpert']);
 Route::post('/registerUser' , [RegisterController::class,'registerUser']);
 Route::get('/register' ,[RegisterController::class , 'index']);
 Route::get('/profile/{id}',[ProfileController::class ,'profile']);
+Route::get('/search/{name}',[HomeController::class ,'search']);

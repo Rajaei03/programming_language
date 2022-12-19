@@ -12,7 +12,7 @@ class LoginController extends Controller
     public function login(Request $request)
     {
         $validated = $request->validate([
-            'email' => ['required','string','email'],
+            'email' => ['required','string'],
             'password' => ['required','string','min:6']
         ]);
 
@@ -23,7 +23,7 @@ class LoginController extends Controller
             ],401);
         }
 
-         $user = User::where('email', $validated['email'])->first();
+        $user = User::where('email', $validated['email'])->first();
 
 
 
@@ -39,7 +39,8 @@ class LoginController extends Controller
         ];
 
         return response()->json([
-            'status' => 'request successful',
+            'message' => "logged in successfully",
+            'status' => true,
             'data' => $resp
         ],201);
 
