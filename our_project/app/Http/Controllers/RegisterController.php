@@ -23,7 +23,7 @@ class RegisterController extends Controller
                 'email'=>'required|string|unique:users,email',
                 'password'=>'required|string|min:6',
                 'phone1'=>'required|string',
-                'isExp'=>'required'
+                'isExp'=>'required',
             ]
             );
             $user = User::create([

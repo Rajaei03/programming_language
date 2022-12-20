@@ -33,7 +33,7 @@ foreach ($cats as $cat)
         $users = DB::table('users')->where('id' , 'Like' , '%'.$exp->user_id.'%')->get();
         foreach ($users as $user)
         {
-            var_dump($user->name);
+            var_dump($user->name,$user->id);
         }
     }
 
