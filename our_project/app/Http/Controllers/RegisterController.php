@@ -119,7 +119,7 @@ class RegisterController extends Controller
                     ]);
                 }else{
                     $cat=Category::Create([
-                        'name' => $expertCats[$i]['name']
+                        'name' => $expertCats[$i]['category_name']
                     ]);
                     $experiences[] = Experience::Create([
                         'user_id' => $user->id,
