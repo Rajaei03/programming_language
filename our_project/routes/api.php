@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,4 +64,4 @@ Route::post('/registerExpert' , [RegisterController::class,'registerExpert']);
 Route::post('/registerUser' , [RegisterController::class,'registerUser']);
 Route::get('/register' ,[RegisterController::class , 'index']);
 Route::get('/profile/{id}',[ProfileController::class ,'profile']);
-Route::get('/search/{name}',[HomeController::class ,'search']);
+Route::get('/search/{name}',[SearchController::class ,'search']);

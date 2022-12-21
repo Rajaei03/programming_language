@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Expert;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,7 +25,7 @@ class LoginController extends Controller
         }
 
         $user = User::where('email', $validated['email'])->first();
-
+        $expert =Expert::where('user_id', $user->id )->first();
 
 
 
@@ -35,6 +36,7 @@ class LoginController extends Controller
 
         $resp = [
             'user' => $user,
+            'expert' => $expert,
             'token' => $token
         ];
 
