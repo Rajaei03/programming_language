@@ -8,6 +8,7 @@ use App\Models\Duration;
 use App\Models\Experience;
 use App\Models\User;
 use App\Models\Expert;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +18,9 @@ class RegisterController extends Controller
 {
     public function registerUser(Request $request)
     {
-        $fields = $request->validate(
+
+        try{
+            $fields = $request->validate(
             [
                 'name'=>'required|string',
                 'email'=>'required|string|unique:users,email',
@@ -26,6 +29,17 @@ class RegisterController extends Controller
                 'isExp'=>'required'
             ]
             );
+        }catch(Exception $e){
+            return response()->json(
+                [
+                    'message' => $e->getMessage(),
+                    'status' => false,
+                    'data' => ""
+                ]
+            ,200 );
+        }
+
+
             $user = User::create([
                 'name'=>$fields['name'],
                 'email'=>$fields['email'],
@@ -57,21 +71,35 @@ class RegisterController extends Controller
 
     public function registerExpert(Request $request)
     {
-        $fields = $request->validate(
-            [
-                'name'=>'required|string',
-                'email'=>'required|string|unique:users,email',
-                'password'=>'required|string|min:6',
-                'phone1'=>'required|string',
-                'isExp'=>'required',
-                'country' => 'required',
-                'city' => 'required',
-                'skills' => 'required',
-                'categories' => 'required',
-                'days' => 'required',
-                'durations' => 'required'
-            ]
-            );
+
+
+
+            try{
+                $fields = $request->validate(
+                    [
+                        'name'=>'required|string',
+                        'email'=>'required|string|unique:users,email',
+                        'password'=>'required|string|min:6',
+                        'phone1'=>'required|string',
+                        'isExp'=>'required',
+                        'country' => 'required',
+                        'city' => 'required',
+                        'skills' => 'required',
+                        'categories' => 'required',
+                        'days' => 'required',
+                        'durations' => 'required'
+                    ]
+                    );
+
+            }catch(Exception $e){
+                return response()->json(
+                    [
+                        'message' => $e->getMessage(),
+                        'status' => false,
+                        'data' => ""
+                    ]
+                ,200 );
+            }
 
             $user = User::create([
                 'name'=>$fields['name'],
