@@ -128,7 +128,7 @@ class RegisterController extends Controller
                 'sunday' => $WorksDays[0],
                 'monday' => $WorksDays[1],
                 'tuesday' => $WorksDays[2],
-                'wednesday' => $WorksDays[3],
+                'wednsday' => $WorksDays[3],
                 'thursday' => $WorksDays[4],
                 'friday' => $WorksDays[5],
                 'saturday' => $WorksDays[6]
