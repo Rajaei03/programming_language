@@ -5,19 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class SearchController extends Controller
+class SearchByNameController extends Controller
 {
-    public function search($NameofEx)
+    public function searchbyname($NameofExpert)
     {
-        $cats = DB::table('categories')->where('name' , 'Like' , '%'.$NameofEx.'%')->get();
+        $users = DB::table('users')->where('name' , 'Like' , '%'.$NameofExpert.'%')->where('isExp' , 'Like' , 1)->get();
 
-foreach ($cats as $cat)
+foreach ($users as $user)
 {
-    $exps = DB::table('experiences')->where('category_id' , 'Like' , '%'.$cat->id.'%')->get();
+    $exps = DB::table('experiences')->where('user_id' , 'Like' , '%'.$user->id.'%')->get();
     foreach ($exps as $exp)
     {
-        $users = DB::table('users')->where('id' , 'Like' , '%'.$exp->user_id.'%')->get();
-        foreach ($users as $user)
+        $cats = DB::table('categories')->where('id' , 'Like' , '%'.$exp->category_id.'%')->get();
+        foreach ($cats as $cat)
         {
             $name = $user->name;
             $price=$exp->price;

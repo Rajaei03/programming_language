@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\HomeController;
-use App\Http\Controllers\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\SearchByNameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,3 +66,4 @@ Route::post('/registerUser' , [RegisterController::class,'registerUser']);
 Route::get('/register' ,[RegisterController::class , 'index']);
 Route::get('/profile/{id}',[ProfileController::class ,'profile']);
 Route::get('/search/{name}',[SearchController::class ,'search']);
+Route::get('/searchbyname/{nameofexpert}',[SearchByNameController::class ,'searchbyname']);
