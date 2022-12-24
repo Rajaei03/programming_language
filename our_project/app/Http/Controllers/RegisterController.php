@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use Exception;
 use App\Models\Day;
-use App\Models\Duration;
-use App\Models\Experience;
 use App\Models\User;
 use App\Models\Expert;
-use Exception;
+use App\Models\Category;
+use App\Models\Duration;
+use App\Models\Experience;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -128,7 +129,7 @@ class RegisterController extends Controller
                 'sunday' => $WorksDays[0],
                 'monday' => $WorksDays[1],
                 'tuesday' => $WorksDays[2],
-                'wednesday' => $WorksDays[3],
+                'wednsday' => $WorksDays[3],
                 'thursday' => $WorksDays[4],
                 'friday' => $WorksDays[5],
                 'saturday' => $WorksDays[6]
@@ -157,6 +158,25 @@ class RegisterController extends Controller
                 }
             }
 
+            $experienceReady = array();
+            foreach ($experiences as $experience){
+                $user_Id = $experience->user_id;
+                $category_id = $experience->category_id;
+                $category = DB::table('categories')
+                            ->where('id','=',$experience->category_id)
+                            ->first();
+                $category_name = $category->name;
+                $price = $experience->price;
+
+                $packet = [
+                    'user_id' => $user_Id,
+                    'category_id' => $category_id,
+                    'category_name' => $category_name,
+                    'price' => $price,
+                ];
+                $experienceReady[] = $packet;
+            }
+
 
 
             $expertDuration =$fields['durations'];
@@ -177,7 +197,7 @@ class RegisterController extends Controller
 
                 'expertInfo' => $expert,
                 'days' => $days,
-                'experiences' => $experiences,
+                'experiences' => $experienceReady,
                 'duration' => $durations,
             ];
 
