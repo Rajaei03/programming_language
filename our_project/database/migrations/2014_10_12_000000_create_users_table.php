@@ -22,10 +22,6 @@ return new class extends Migration
             $table->integer('balance');
             $table->boolean('isExp');
             $table->string('phone1');
-            $table->string('phone2')->nullable();
-
-
-
             $table->rememberToken();
             $table->timestamps();
         });

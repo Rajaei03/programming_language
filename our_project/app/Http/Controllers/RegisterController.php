@@ -46,7 +46,6 @@ class RegisterController extends Controller
                 'email'=>$fields['email'],
                 'password'=>bcrypt($fields['password']),
                 'phone1'=>$fields['phone1'],
-                'phone2'=>'243423',
                 'balance'=>500,
                 'isExp'=>$fields['isExp']
             ]);
@@ -107,7 +106,6 @@ class RegisterController extends Controller
                 'email'=>$fields['email'],
                 'password'=>bcrypt($fields['password']),
                 'phone1'=>$fields['phone1'],
-                'phone2'=>'243423',
                 'balance'=>500,
                 'isExp'=>$fields['isExp']
             ]);
