@@ -57,42 +57,82 @@ class HomeController extends Controller
 
     public function homeFilter(Request $request,$id)
     {
-        $experiences = DB::table('experiences')
-                    ->where('category_id', '=', $id)
-                    ->get();
+        if($id<6){
+            $experiences = DB::table('experiences')
+                        ->where('category_id', '=', $id)
+                        ->get();
 
-        $data = array();
+            $data = array();
 
-        foreach($experiences as $experience){
-            $user = DB::table('users')
-                    ->where('id','=',$experience->user_id)
-                    ->first();
+            foreach($experiences as $experience){
+                $user = DB::table('users')
+                        ->where('id','=',$experience->user_id)
+                        ->first();
 
-            $category = DB::table('categories')
-                    ->where('id','=',$experience->category_id)
-                    ->first();
-            $id = $experience->id;
-            $name=$user->name;
-            $price=$experience->price;
-            $type=$category->name;
+                $category = DB::table('categories')
+                        ->where('id','=',$experience->category_id)
+                        ->first();
+                $id = $experience->id;
+                $name=$user->name;
+                $price=$experience->price;
+                $type=$category->name;
 
 
-            $packet = [
-                'id' => $id,
-                "name" => $name,
-                "price" => $price,
-                "type" => $type
-            ];
+                $packet = [
+                    'id' => $id,
+                    "name" => $name,
+                    "price" => $price,
+                    "type" => $type
+                ];
 
-            $data[] = $packet;
+                $data[] = $packet;
 
+            }
+
+
+
+            return response()->json([
+                'status' => true,
+                'data' => $data
+            ],200);
+        }else{
+            $experiences = DB::table('experiences')
+                        ->where('category_id', '>', 5)
+                        ->get();
+
+            $data = array();
+
+            foreach($experiences as $experience){
+                $user = DB::table('users')
+                        ->where('id','=',$experience->user_id)
+                        ->first();
+
+                $category = DB::table('categories')
+                        ->where('id','=',$experience->category_id)
+                        ->first();
+                $id = $experience->id;
+                $name=$user->name;
+                $price=$experience->price;
+                $type=$category->name;
+
+
+                $packet = [
+                    'id' => $id,
+                    "name" => $name,
+                    "price" => $price,
+                    "type" => $type
+                ];
+
+                $data[] = $packet;
+
+            }
+
+
+
+            return response()->json([
+                'status' => true,
+                'data' => $data
+            ],200);
         }
-
-
-
-        return response()->json([
-            'status' => true,
-            'data' => $data
-        ],200);
     }
 }
