@@ -5,8 +5,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SearchByNameController;
 
@@ -35,7 +36,7 @@ Route::get('/home',[HomeController::class ,'home']);
 Route::get('/home/{id}',[HomeController::class ,'homeFilter']);
 Route::post('/registerExpert' , [RegisterController::class,'registerExpert']);
 
-
+Route::middleware('auth:sanctum')->post('/reserve' , [ReservationController::class,'reserve']);
 
 
 

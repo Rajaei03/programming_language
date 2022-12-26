@@ -24,7 +24,6 @@ class User extends Authenticatable
         'balance',
         'isExp',
         'phone1',
-        'phone2',
 
     ];
 
@@ -51,6 +50,11 @@ class User extends Authenticatable
     public function expert()
     {
         return $this->belongsTo(expert::class);
+
+    }
+    public function reservation()
+    {
+        return $this->hasMany(Reservation::class);
 
     }
 }
