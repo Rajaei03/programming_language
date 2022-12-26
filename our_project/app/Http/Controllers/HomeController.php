@@ -26,13 +26,14 @@ class HomeController extends Controller
             $category = DB::table('categories')
                     ->where('id','=',$experience->category_id)
                     ->first();
-
+            $id = $experience->id;
             $name=$user->name;
             $price=$experience->price;
             $type=$category->name;
 
 
             $packet = [
+                'id' => $id,
                 "name" => $name,
                 "price" => $price,
                 "type" => $type
@@ -70,13 +71,14 @@ class HomeController extends Controller
             $category = DB::table('categories')
                     ->where('id','=',$experience->category_id)
                     ->first();
-
+            $id = $experience->id;
             $name=$user->name;
             $price=$experience->price;
             $type=$category->name;
 
 
             $packet = [
+                'id' => $id,
                 "name" => $name,
                 "price" => $price,
                 "type" => $type
