@@ -20,7 +20,8 @@ class LoginController extends Controller
 
         if(!Auth::attempt($request->only(['email','password']))){
             return response([
-                'message' => "bad cred"
+                'message' => "bad cred",
+                'status' => false
             ],200);
         }
 
