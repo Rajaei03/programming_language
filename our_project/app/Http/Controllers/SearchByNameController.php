@@ -10,7 +10,13 @@ class SearchByNameController extends Controller
     public function searchbyname($NameofExpert)
     {
         $users = DB::table('users')->where('name' , 'Like' , '%'.$NameofExpert.'%')->where('isExp' , 'Like' , 1)->get();
-
+        if($users->isEmpty())
+        {
+            return response()->json([
+                'status' => false,
+                'message' => "there is no such name"
+            ],200);
+        }
 foreach ($users as $user)
 {
     $exps = DB::table('experiences')->where('user_id' , 'Like' , '%'.$user->id.'%')->get();
