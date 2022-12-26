@@ -10,6 +10,13 @@ class SearchController extends Controller
     public function search($NameofEx)
     {
         $cats = DB::table('categories')->where('name' , 'Like' , '%'.$NameofEx.'%')->get();
+        if($cats->isEmpty())
+        {
+            return response()->json([
+                'status' => false,
+                'message' => "there is no such consultation"
+            ],200);
+        }
 
 foreach ($cats as $cat)
 {

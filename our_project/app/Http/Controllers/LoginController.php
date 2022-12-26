@@ -21,7 +21,7 @@ class LoginController extends Controller
         if(!Auth::attempt($request->only(['email','password']))){
             return response([
                 'message' => "bad cred"
-            ],401);
+            ],200);
         }
 
         $user = User::where('email', $validated['email'])->first();
