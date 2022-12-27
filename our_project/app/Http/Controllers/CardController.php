@@ -37,6 +37,7 @@ class CardController extends Controller
         [
             "name" => $name,
             "expert_id" =>$expertid,
+            "experience_id" => $id,
             "type" => $type,
             "price" => $price,
             "days" => $days,
