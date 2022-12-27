@@ -26,11 +26,13 @@ foreach ($cats as $cat)
         $users = DB::table('users')->where('id' , 'Like' , '%'.$exp->user_id.'%')->get();
         foreach ($users as $user)
         {
+            $id = $exp->id;
             $name = $user->name;
             $price=$exp->price;
             $type=$cat->name;
             $packet =
             [
+                'id' => $id,
                 "name" => $name,
                 "price" => $price,
                 "type" => $type
