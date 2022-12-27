@@ -33,11 +33,13 @@ class CardController extends Controller
                 $worktimes[]  = $worktime;
             }
         }
+        $int = intval($id);
+
         $packet =
         [
             "name" => $name,
             "expert_id" =>$expertid,
-            "experience_id" => $id,
+            "experience_id" => $int,
             "type" => $type,
             "price" => $price,
             "days" => $days,
