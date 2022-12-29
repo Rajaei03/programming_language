@@ -35,8 +35,13 @@ Route::post('/login',[LoginController::class ,'login']);
 Route::get('/home',[HomeController::class ,'home']);
 Route::get('/home/{id}',[HomeController::class ,'homeFilter']);
 Route::post('/registerExpert' , [RegisterController::class,'registerExpert']);
+Route::get('/profile/{id}',[ProfileController::class ,'profile']);
 
 Route::middleware('auth:sanctum')->post('/reserve' , [ReservationController::class,'reserve']);
+Route::middleware('auth:sanctum')->get('/myProfile',[ProfileController::class ,'myProfile']);
+Route::middleware('auth:sanctum')->get('/history',[ReservationController::class ,'history']);
+
+
 
 
 
@@ -66,7 +71,6 @@ Route::middleware('auth:sanctum')->post('/reserve' , [ReservationController::cla
 //obada routes
 Route::post('/registerUser' , [RegisterController::class,'registerUser']);
 Route::get('/register' ,[RegisterController::class , 'index']);
-Route::get('/profile/{id}',[ProfileController::class ,'profile']);
 Route::get('/search/{name}',[SearchController::class ,'search']);
 Route::get('/searchbyname/{nameofexpert}',[SearchByNameController::class ,'searchbyname']);
 Route::get('/experience/{id}',[CardController::class ,'card']);

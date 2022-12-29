@@ -103,4 +103,48 @@ class ReservationController extends Controller
 
 
     }
+
+
+
+
+
+
+    public function history()
+    {
+        $user = Auth::user();
+
+        $myAppointments = DB::table('reservations')
+                            ->where('expert_id','=',$user->id)
+                            ->get();
+
+        $data = array();
+        foreach ($myAppointments as $appointment){
+            $appointmentUser = DB::table('users')
+                                ->where('id','=',$appointment->user_id)
+                                ->first();
+            $userID = $appointmentUser->id;
+            $userName = $appointmentUser->name;
+            $day = $appointment->day;
+            $month = $appointment->month;
+            $from = $appointment->from;
+
+            $packet =[
+                "user_id" => $userID,
+                "userName" => $userName,
+                "day" => $day,
+                "month" => $month,
+                "from" => $from
+            ];
+
+            $data[] = $packet;
+
+        }
+        return response()->json([
+            'status' => true,
+            'message' => "done",
+            'data' => $data
+        ]);
+    }
+
+
 }
