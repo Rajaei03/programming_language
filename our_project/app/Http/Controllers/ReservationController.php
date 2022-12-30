@@ -16,6 +16,7 @@ class ReservationController extends Controller
             'experience_id' => 'required',
             'day' => 'required',
             'month' => 'required',
+            'year' => 'required',
             'from' => 'required'
         ]);
 
@@ -90,6 +91,7 @@ class ReservationController extends Controller
             'from' => $fields['from'],
             'day' => $fields['day'],
             'month' => $fields['month'],
+            'year' => $fields['year'],
             'user_id' => $user->id,
             'expert_id' => $expertUser->id,
             'category_id' => $category->id

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('day');
             $table->integer('month');
+            $table->integer('year');
             $table->integer('from');
             $table->foreignId(column:'user_id')->constrained();
             $table->foreignId(column:'expert_id')->references('user_id')->on('experts')->onDelete('cascade');
