@@ -178,6 +178,24 @@ class RegisterController extends Controller
 
 
             $expertDuration =$fields['durations'];
+            $checker =array();
+
+            foreach ($expertDuration as $duration){
+                $start = $duration['from'];
+                $end = $duration['to'];
+                for($i=$start;$i<$end;$i++){
+                    if(in_array($i,$checker)){
+                        return response()->json([
+                            'status' => false,
+                            'message' => "There is duration collision ,please check your durations"
+                        ],200);
+                    }
+                    $checker[] = $i;
+                }
+            }
+
+
+
             $durations = array();
             for($i=0;$i<sizeof($expertDuration);$i++){
                 $durations[]=Duration::create([
