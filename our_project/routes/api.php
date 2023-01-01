@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\FavoriteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
@@ -70,3 +71,5 @@ Route::get('/profile/{id}',[ProfileController::class ,'profile']);
 Route::get('/search/{name}',[SearchController::class ,'search']);
 Route::get('/searchbyname/{nameofexpert}',[SearchByNameController::class ,'searchbyname']);
 Route::get('/experience/{id}',[CardController::class ,'card']);
+Route::middleware('auth:sanctum')->post('/favourites' , [FavoriteController::class,'favorite']);
+

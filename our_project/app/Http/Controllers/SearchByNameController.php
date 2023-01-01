@@ -19,10 +19,10 @@ class SearchByNameController extends Controller
         }
 foreach ($users as $user)
 {
-    $exps = DB::table('experiences')->where('user_id' , 'Like' , '%'.$user->id.'%')->get();
+    $exps = DB::table('experiences')->where('user_id' , 'Like' , $user->id)->get();
     foreach ($exps as $exp)
     {
-        $cats = DB::table('categories')->where('id' , 'Like' , '%'.$exp->category_id.'%')->get();
+        $cats = DB::table('categories')->where('id' , 'Like' , $exp->category_id)->get();
         foreach ($cats as $cat)
         {
             $id = $exp->id;

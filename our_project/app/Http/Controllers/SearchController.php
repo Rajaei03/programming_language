@@ -20,10 +20,17 @@ class SearchController extends Controller
 
 foreach ($cats as $cat)
 {
-    $exps = DB::table('experiences')->where('category_id' , 'Like' , '%'.$cat->id.'%')->get();
+    $exps = DB::table('experiences')->where('category_id' , 'Like' , $cat->id)->get();
+    if($exps->isEmpty())
+        {
+            return response()->json([
+                'status' => false,
+                'message' => "there is no such consultation"
+            ],200);
+        }
     foreach ($exps as $exp)
     {
-        $users = DB::table('users')->where('id' , 'Like' , '%'.$exp->user_id.'%')->get();
+        $users = DB::table('users')->where('id' , 'Like' , $exp->user_id)->get();
         foreach ($users as $user)
         {
             $id = $exp->id;

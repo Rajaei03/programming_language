@@ -24,6 +24,7 @@ class RegisterController extends Controller
             $fields = $request->validate(
             [
                 'name'=>'required|string',
+                'image'=>'image,mimes:jpeg,png,bmp,jpg,gif,svg',
                 'email'=>'required|string|unique:users,email',
                 'password'=>'required|string|min:6',
                 'phone1'=>'required|string',
@@ -39,7 +40,14 @@ class RegisterController extends Controller
                 ]
             ,200 );
         }
-
+            $image =$request->file('image');
+            $profile_image=null;
+            if($request->hasFile('image'))
+            {
+                $profile_image=time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('image'),$profile_image);
+                $profile_image='image/'.$profile_image;
+            }
 
             $user = User::create([
                 'name'=>$fields['name'],
@@ -79,6 +87,7 @@ class RegisterController extends Controller
                     [
                         'name'=>'required|string',
                         'email'=>'required|string|unique:users,email',
+                        'image'=>'image,mimes:jpeg,png,bmp,jpg,gif,svg',
                         'password'=>'required|string|min:6',
                         'phone1'=>'required|string',
                         'isExp'=>'required',
@@ -99,6 +108,15 @@ class RegisterController extends Controller
                         'data' => ""
                     ]
                 ,200 );
+            }
+
+            $image =$request->file('image');
+            $profile_image=null;
+            if($request->hasFile('image'))
+            {
+                $profile_image=time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('image'),$profile_image);
+                $profile_image='image/'.$profile_image;
             }
 
             $user = User::create([
@@ -142,7 +160,6 @@ class RegisterController extends Controller
                         'user_id' => $user->id,
                         'category_id' => $expertCats[$i]['category_id'],
                         'price' => $expertCats[$i]['price'],
-
                     ]);
                 }else{
                     $cat=Category::Create([

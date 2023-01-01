@@ -24,4 +24,9 @@ class Experience extends Model
         return $this->belongsTo(expert::class);
     }
 
+    public function Favorite()
+    {
+        return $this->hasMany(Favorite::class);
+    }
+
 }

@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'image',
         'email',
         'password',
         'balance',
@@ -56,5 +57,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reservation::class);
 
+    }
+    public function favorite()
+    {
+        return $this->hasMany(Favorite::class);
     }
 }
