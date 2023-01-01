@@ -187,7 +187,8 @@ class RegisterController extends Controller
                     if(in_array($i,$checker)){
                         return response()->json([
                             'status' => false,
-                            'message' => "There is duration collision ,please check your durations"
+                            'message' => "There is duration collision ,please check your durations",
+                            'data' => ''
                         ],200);
                     }
                     $checker[] = $i;

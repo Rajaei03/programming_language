@@ -14,10 +14,13 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         if($user->isExp==0){
+            $response =[
+                'user' => $user
+            ];
             return response()->json([
                 'status' => true,
                 'message' => 'done',
-                'data' => $user
+                'data' => $response
             ]);
         }
 
@@ -32,6 +35,25 @@ class ProfileController extends Controller
         $experiences = DB::table('experiences')
                         ->where('user_id','=',$user->id)
                         ->get();
+        $experiencesReady = array();
+        foreach ($experiences as $experience){
+            $id = $experience->id;
+            $user_id = $experience->user_id;
+            $category_id = $experience->category_id;
+            $category = DB::table('categories')
+                            ->where('id','=',$category_id)
+                            ->first();
+            $category_name = $category->name;
+            $price  = $experience->price;
+            $packet = [
+                'id' => $id,
+                'user_id' => $user_id,
+                'category_id' => $category_id,
+                'category_name' => $category_name,
+                'price' => $price
+            ];
+            $experiencesReady[] = $packet;
+        }
 
         $durations = DB::table('durations')
                         ->where('user_id','=',$user->id)
@@ -41,7 +63,7 @@ class ProfileController extends Controller
 
             'expertInfo' => $expert,
             'days' => $days,
-            'experiences' => $experiences,
+            'experiences' => $experiencesReady,
             'duration' => $durations,
         ];
 
@@ -85,6 +107,25 @@ class ProfileController extends Controller
         $experiences = DB::table('experiences')
                         ->where('user_id','=',$user->id)
                         ->get();
+        $experiencesReady = array();
+        foreach ($experiences as $experience){
+            $id = $experience->id;
+            $user_id = $experience->user_id;
+            $category_id = $experience->category_id;
+            $category = DB::table('categories')
+                            ->where('id','=',$category_id)
+                            ->first();
+            $category_name = $category->name;
+            $price  = $experience->price;
+            $packet = [
+                'id' => $id,
+                'user_id' => $user_id,
+                'category_id' => $category_id,
+                'category_name' => $category_name,
+                'price' => $price
+            ];
+            $experiencesReady[] = $packet;
+        }
 
         $durations = DB::table('durations')
                         ->where('user_id','=',$user->id)
@@ -94,7 +135,7 @@ class ProfileController extends Controller
 
             'expertInfo' => $expert,
             'days' => $days,
-            'experiences' => $experiences,
+            'experiences' => $experiencesReady,
             'duration' => $durations,
         ];
 

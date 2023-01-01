@@ -40,6 +40,7 @@ Route::get('/profile/{id}',[ProfileController::class ,'profile']);
 Route::middleware('auth:sanctum')->post('/reserve' , [ReservationController::class,'reserve']);
 Route::middleware('auth:sanctum')->get('/myProfile',[ProfileController::class ,'myProfile']);
 Route::middleware('auth:sanctum')->get('/history',[ReservationController::class ,'history']);
+Route::middleware('auth:sanctum')->post('/logout',[LoginController::class ,'logout']);
 
 
 
