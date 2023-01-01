@@ -76,5 +76,5 @@ Route::get('/register' ,[RegisterController::class , 'index']);
 Route::get('/search/{name}',[SearchController::class ,'search']);
 Route::get('/searchbyname/{nameofexpert}',[SearchByNameController::class ,'searchbyname']);
 Route::get('/experience/{id}',[CardController::class ,'card']);
-Route::middleware('auth:sanctum')->post('/favourites' , [FavoriteController::class,'favorite']);
+Route::middleware('auth:sanctum')->post('/changefavourites' , [FavoriteController::class,'favorite']);
 
