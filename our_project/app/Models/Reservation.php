@@ -16,6 +16,7 @@ class Reservation extends Model
         'category_id',
         'day',
         'month',
+        'year',
         'from'
     ];
 

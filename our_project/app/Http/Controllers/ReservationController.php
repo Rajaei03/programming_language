@@ -16,6 +16,7 @@ class ReservationController extends Controller
             'experience_id' => 'required',
             'day' => 'required',
             'month' => 'required',
+            'year' => 'required',
             'from' => 'required'
         ]);
 
@@ -90,6 +91,7 @@ class ReservationController extends Controller
             'from' => $fields['from'],
             'day' => $fields['day'],
             'month' => $fields['month'],
+            'year' => $fields['year'],
             'user_id' => $user->id,
             'expert_id' => $expertUser->id,
             'category_id' => $category->id
@@ -103,4 +105,48 @@ class ReservationController extends Controller
 
 
     }
+
+
+
+
+
+
+    public function history()
+    {
+        $user = Auth::user();
+
+        $myAppointments = DB::table('reservations')
+                            ->where('expert_id','=',$user->id)
+                            ->get();
+
+        $data = array();
+        foreach ($myAppointments as $appointment){
+            $appointmentUser = DB::table('users')
+                                ->where('id','=',$appointment->user_id)
+                                ->first();
+            $userID = $appointmentUser->id;
+            $userName = $appointmentUser->name;
+            $day = $appointment->day;
+            $month = $appointment->month;
+            $from = $appointment->from;
+
+            $packet =[
+                "user_id" => $userID,
+                "userName" => $userName,
+                "day" => $day,
+                "month" => $month,
+                "from" => $from
+            ];
+
+            $data[] = $packet;
+
+        }
+        return response()->json([
+            'status' => true,
+            'message' => "done",
+            'data' => $data
+        ]);
+    }
+
+
 }
