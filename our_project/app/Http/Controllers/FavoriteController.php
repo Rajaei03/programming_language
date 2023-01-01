@@ -43,7 +43,7 @@ class FavoriteController extends Controller
             ]);
             return response()->json(
                 [
-                    'message' => "Added successfully",
+                    'message' => "removerd from favorites",
                     'status' => true
                 ]
             ,201 );
