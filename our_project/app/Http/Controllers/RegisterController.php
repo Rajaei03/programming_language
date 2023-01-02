@@ -110,6 +110,24 @@ class RegisterController extends Controller
                 ,200 );
             }
 
+            $expertDuration =$fields['durations'];
+            $checker =array();
+
+            foreach ($expertDuration as $duration){
+                $start = $duration['from'];
+                $end = $duration['to'];
+                for($i=$start;$i<$end;$i++){
+                    if(in_array($i,$checker)){
+                        return response()->json([
+                            'status' => false,
+                            'message' => "There is duration collision ,please check your durations",
+                            'data' => ''
+                        ],200);
+                    }
+                    $checker[] = $i;
+                }
+            }
+
             $image =$request->file('image');
             $profile_image=null;
             if($request->hasFile('image'))
@@ -135,7 +153,9 @@ class RegisterController extends Controller
                 'user_id'=> $user->id,
                 'country'=>$fields['country'],
                 'city'=>$fields['city'],
-                'skills'=>$fields['skills']
+                'skills'=>$fields['skills'],
+                'rate' => 2.5,
+                'numRated' => 0
             ]);
 
             $WorksDays = $fields['days'];
@@ -151,9 +171,10 @@ class RegisterController extends Controller
                 'saturday' => $WorksDays[6]
             ]);
 
+
+
             $expertCats = $fields['categories'];
             $experiences = array();
-            //var_dump($expertCats);
             for($i=0;$i<sizeof($expertCats);$i++){
                 if($expertCats[$i]['category_id']<=5){
                     $experiences[] = Experience::create([
@@ -194,23 +215,7 @@ class RegisterController extends Controller
 
 
 
-            $expertDuration =$fields['durations'];
-            $checker =array();
 
-            foreach ($expertDuration as $duration){
-                $start = $duration['from'];
-                $end = $duration['to'];
-                for($i=$start;$i<$end;$i++){
-                    if(in_array($i,$checker)){
-                        return response()->json([
-                            'status' => false,
-                            'message' => "There is duration collision ,please check your durations",
-                            'data' => ''
-                        ],200);
-                    }
-                    $checker[] = $i;
-                }
-            }
 
 
 

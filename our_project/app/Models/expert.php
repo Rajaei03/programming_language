@@ -13,7 +13,9 @@ class Expert extends Model
         'user_id',
         'country',
         'city',
-        'skills'
+        'skills',
+        'rate',
+        'numRated'
     ];
 
     public function user()

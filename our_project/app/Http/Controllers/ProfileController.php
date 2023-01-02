@@ -154,5 +154,50 @@ class ProfileController extends Controller
 
     }
 
+    public function rate(Request $request)
+    {
+        $user = Auth::user();
+
+        $fields = $request->validate([
+            'expert_id' => 'required',
+            'rate' => 'required'
+        ]);
+
+        $checker = DB::table('reservations')
+                        ->where('user_id','=',$user->id)
+                        ->where('expert_id',$fields['expert_id'])
+                        ->first();
+
+        if($checker == null){
+            return response()->json([
+                'status' => false,
+                'message' => "You can't rate an expert you haven't tried"
+            ]);
+        }
+
+        $expert = DB::table('experts')
+                    ->where('user_id',$fields['expert_id'])
+                    ->first();
+        $sumRating = $expert->rate * $expert->numRated;
+
+        $sumRating = $sumRating + $fields['rate'];
+
+        $rate = $sumRating / ($expert->numRated+1);
+
+        $updatedExp = DB::table('experts')
+                            ->where('user_id',$fields['expert_id'])
+                            ->update(['rate' => $rate,'numRated' => $expert->numRated+1]);
+
+        return response()->json([
+            'status' => true,
+            'message' => "successfully rated"
+        ]);
+
+
+
+
+
+    }
+
 
 }

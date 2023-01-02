@@ -42,6 +42,7 @@ Route::middleware('auth:sanctum')->post('/reserve' , [ReservationController::cla
 Route::middleware('auth:sanctum')->get('/myProfile',[ProfileController::class ,'myProfile']);
 Route::middleware('auth:sanctum')->get('/history',[ReservationController::class ,'history']);
 Route::middleware('auth:sanctum')->post('/logout',[LoginController::class ,'logout']);
+Route::middleware('auth:sanctum')->post('/rate',[ProfileController::class ,'rate']);
 
 
 

@@ -18,7 +18,9 @@ return new class extends Migration
             $table->foreignId(column:'user_id')->constrained();
             $table->string('country');
             $table->string('city');
-            $table->text('skills'); 
+            $table->text('skills');
+            $table->float('rate');
+            $table->integer('numRated');
             $table->timestamps();
 
         });
