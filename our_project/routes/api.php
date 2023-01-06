@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CardController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\FavoriteController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -33,16 +34,30 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 
 Route::post('/login',[LoginController::class ,'login']);
+
 Route::get('/home',[HomeController::class ,'home']);
 Route::get('/home/{id}',[HomeController::class ,'homeFilter']);
+
 Route::post('/registerExpert' , [RegisterController::class,'registerExpert']);
+
 Route::get('/profile/{id}',[ProfileController::class ,'profile']);
 
+
+
 Route::middleware('auth:sanctum')->post('/reserve' , [ReservationController::class,'reserve']);
-Route::middleware('auth:sanctum')->get('/myProfile',[ProfileController::class ,'myProfile']);
 Route::middleware('auth:sanctum')->get('/history',[ReservationController::class ,'history']);
-Route::middleware('auth:sanctum')->post('/logout',[LoginController::class ,'logout']);
+
+Route::middleware('auth:sanctum')->get('/myProfile',[ProfileController::class ,'myProfile']);
 Route::middleware('auth:sanctum')->post('/rate',[ProfileController::class ,'rate']);
+
+Route::middleware('auth:sanctum')->post('/logout',[LoginController::class ,'logout']);
+
+
+Route::middleware('auth:sanctum')->post('/createChat',[ChatController::class ,'createChat']);
+Route::middleware('auth:sanctum')->get('/getChat',[ChatController::class ,'getChat']);
+
+Route::middleware('auth:sanctum')->get('/getMessages',[ChatController::class ,'getMessage']);
+Route::middleware('auth:sanctum')->post('/createMessages',[ChatController::class ,'createMessage']);
 
 
 

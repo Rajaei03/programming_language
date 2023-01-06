@@ -41,4 +41,8 @@ class Expert extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+    public function chat()
+    {
+        return $this->hasMany(Chat::class);
+    }
 }
