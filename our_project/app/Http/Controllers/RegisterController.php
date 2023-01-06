@@ -12,6 +12,7 @@ use App\Models\Experience;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -40,15 +41,30 @@ class RegisterController extends Controller
                 ]
             ,200 );
         }
-            $image =$request->file('image');
-            $profile_image=null;
+            // $image =$request->file('image');
+            // $profile_image=null;
+            // if($request->hasFile('image'))
+            // {
+            //     $profile_image=time().'.'.$image->getClientOriginalExtension();
+            //     $image->move(public_path('image'),$profile_image);
+            //     $profile_image='image/'.$profile_image;
+            // }
+            $input = $request->all();
             if($request->hasFile('image'))
             {
-                $profile_image=time().'.'.$image->getClientOriginalExtension();
-                $image->move(public_path('image'),$profile_image);
-                $profile_image='image/'.$profile_image;
+                $filenametostore = time().'.'.$request->image->extinsion();
+                $request->image->move(public_path('image'),$filenametostore);
+                $input['imgUrl'] = URL::asset('image/'.$filenametostore);
             }
-
+            /*
+            $input = $request->all();
+            if($request->hasFile('image'))
+            {
+                $filenametostore = time().'.'.$request->image->extinsion();
+                $request->image->move(public_path('image'),$filenametostore);
+                $input['imgUrl'] = URL::asset()
+            }
+            */
             $user = User::create([
                 'name'=>$fields['name'],
                 'email'=>$fields['email'],
@@ -56,7 +72,7 @@ class RegisterController extends Controller
                 'phone1'=>$fields['phone1'],
                 'balance'=>500,
                 'isExp'=>$fields['isExp'],
-                'image' => $fields['image']
+                'image' =>$input['imgUrl']
             ]);
             $token = $user->createToken('loginToken')->plainTextToken;
             $response = [
