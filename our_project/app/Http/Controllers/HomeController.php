@@ -195,7 +195,7 @@ class HomeController extends Controller
                     "price" => $price,
                     "type" => $type,
                     "rate" => $rate,
-                    "faorite_status" => false
+                    "favorite_status" => false
                 ];
             }else
             {
@@ -205,7 +205,7 @@ class HomeController extends Controller
                 "price" => $price,
                 "type" => $type,
                 "rate" => $rate,
-                "faorite_status" => true
+                "favorite_status" => true
             ];
             }
             $data[] = $packet;
