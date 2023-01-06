@@ -119,23 +119,45 @@ class ReservationController extends Controller
                             ->where('expert_id','=',$user->id)
                             ->get();
 
+
         $data = array();
         foreach ($myAppointments as $appointment){
             $appointmentUser = DB::table('users')
                                 ->where('id','=',$appointment->user_id)
                                 ->first();
+
+            $resCat = DB::table('categories')
+                            ->where('id','=',$appointment->category_id)
+                            ->first();
+
             $userID = $appointmentUser->id;
             $userName = $appointmentUser->name;
             $day = $appointment->day;
             $month = $appointment->month;
+            $year = $appointment->year;
+
+            $monthName = date("F", strtotime("{$year}-{$month}-{$day}"));
+            $dayName = date("l", strtotime("{$year}-{$month}-{$day}"));
+
             $from = $appointment->from;
+
+            if($from < 10){
+                $myFrom = "0{$from}:00";
+            }else{
+                $myFrom = "{$from}:00";
+            }
+
+            $type = $resCat->name;
 
             $packet =[
                 "user_id" => $userID,
-                "userName" => $userName,
+                "userName" => "{$userName}",
                 "day" => $day,
-                "month" => $month,
-                "from" => $from
+                "month" => "{$monthName}",
+                "year" => $year,
+                "dayName" => "{$dayName}",
+                "from" => $myFrom,
+                "type" => "{$type}"
             ];
 
             $data[] = $packet;

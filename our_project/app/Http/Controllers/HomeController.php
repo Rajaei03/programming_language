@@ -23,6 +23,10 @@ class HomeController extends Controller
                     ->where('id','=',$experience->user_id)
                     ->first();
 
+            $expert = DB::table('experts')
+                    ->where('user_id','=',$experience->user_id)
+                    ->first();
+
             $category = DB::table('categories')
                     ->where('id','=',$experience->category_id)
                     ->first();
@@ -30,13 +34,16 @@ class HomeController extends Controller
             $name=$user->name;
             $price=$experience->price;
             $type=$category->name;
+            $rate=$expert->rate;
+
 
 
             $packet = [
                 'id' => $id,
                 "name" => $name,
                 "price" => $price,
-                "type" => $type
+                "type" => $type,
+                "rate" => $rate
             ];
 
             $data[] = $packet;
@@ -69,20 +76,27 @@ class HomeController extends Controller
                         ->where('id','=',$experience->user_id)
                         ->first();
 
+                $expert = DB::table('experts')
+                            ->where('user_id','=',$experience->user_id)
+                            ->first();
+
                 $category = DB::table('categories')
                         ->where('id','=',$experience->category_id)
                         ->first();
+
                 $id = $experience->id;
                 $name=$user->name;
                 $price=$experience->price;
                 $type=$category->name;
+                $rate=$expert->rate;
 
 
                 $packet = [
                     'id' => $id,
                     "name" => $name,
                     "price" => $price,
-                    "type" => $type
+                    "type" => $type,
+                    "rate" => $rate
                 ];
 
                 $data[] = $packet;
@@ -107,6 +121,10 @@ class HomeController extends Controller
                         ->where('id','=',$experience->user_id)
                         ->first();
 
+                $expert = DB::table('experts')
+                           ->where('user_id','=',$experience->user_id)
+                           ->first();
+
                 $category = DB::table('categories')
                         ->where('id','=',$experience->category_id)
                         ->first();
@@ -114,13 +132,15 @@ class HomeController extends Controller
                 $name=$user->name;
                 $price=$experience->price;
                 $type=$category->name;
+                $rate=$expert->rate;
 
 
                 $packet = [
                     'id' => $id,
                     "name" => $name,
                     "price" => $price,
-                    "type" => $type
+                    "type" => $type,
+                    "rate" => $rate
                 ];
 
                 $data[] = $packet;
