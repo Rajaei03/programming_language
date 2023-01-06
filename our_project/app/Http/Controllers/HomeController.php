@@ -125,8 +125,8 @@ class HomeController extends Controller
                         ->first();
 
                 $expert = DB::table('experts')
-                           ->where('user_id','=',$experience->user_id)
-                           ->first();
+                        ->where('user_id','=',$experience->user_id)
+                        ->first();
 
                 $category = DB::table('categories')
                         ->where('id','=',$experience->category_id)
