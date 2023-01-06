@@ -24,6 +24,7 @@ class RegisterController extends Controller
         try{
             $fields = $request->validate(
             [
+                'img'=>'image'
                 'name'=>'required|string',
                 'image'=>'image',
                 'email'=>'required|string|unique:users,email',
@@ -41,38 +42,23 @@ class RegisterController extends Controller
                 ]
             ,200 );
         }
-            // $image =$request->file('image');
-            // $profile_image=null;
-            // if($request->hasFile('image'))
-            // {
-            //     $profile_image=time().'.'.$image->getClientOriginalExtension();
-            //     $image->move(public_path('image'),$profile_image);
-            //     $profile_image='image/'.$profile_image;
-            // }
-            $input = $request->all();
-            if($request->hasFile('image'))
-            {
-                $filenametostore = time().'.'.$request->image->extinsion();
-                $request->image->move(public_path('image'),$filenametostore);
-                $input['imageUrl'] = URL::asset('image/'.$filenametostore);
-            }
-            /*
-            $input = $request->all();
-            if($request->hasFile('image'))
-            {
-                $filenametostore = time().'.'.$request->image->extinsion();
-                $request->image->move(public_path('image'),$filenametostore);
-                $input['imgUrl'] = URL::asset()
-            }
-            */
+        $input = $request->all();
+        if($request->hasFile('img'))
+        {
+            $filenameToStore = time().'.'.$request->img->extension();
+            $request->img->move(public_path('images'),$filenameToStore);
+            $input['imgUrl'] = URL::asset('images/'.$filenameToStore);
+        }
+
             $user = User::create([
+                'img' => $input['imgUrl'],
                 'name'=>$fields['name'],
                 'email'=>$fields['email'],
                 'password'=>bcrypt($fields['password']),
                 'phone1'=>$fields['phone1'],
                 'balance'=>500,
                 'isExp'=>$fields['isExp'],
-                'image' =>$input['imageUrl']
+
             ]);
             $token = $user->createToken('loginToken')->plainTextToken;
             $response = [
