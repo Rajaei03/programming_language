@@ -24,7 +24,7 @@ class RegisterController extends Controller
             $fields = $request->validate(
             [
                 'name'=>'required|string',
-                'image'=>'image,mimes:jpeg,png,bmp,jpg,gif,svg',
+                'image'=>'image',
                 'email'=>'required|string|unique:users,email',
                 'password'=>'required|string|min:6',
                 'phone1'=>'required|string',
@@ -55,7 +55,8 @@ class RegisterController extends Controller
                 'password'=>bcrypt($fields['password']),
                 'phone1'=>$fields['phone1'],
                 'balance'=>500,
-                'isExp'=>$fields['isExp']
+                'isExp'=>$fields['isExp'],
+                'image' => $fields['image']
             ]);
             $token = $user->createToken('loginToken')->plainTextToken;
             $response = [
