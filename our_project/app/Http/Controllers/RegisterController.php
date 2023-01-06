@@ -54,7 +54,7 @@ class RegisterController extends Controller
             {
                 $filenametostore = time().'.'.$request->image->extinsion();
                 $request->image->move(public_path('image'),$filenametostore);
-                $input['imgUrl'] = URL::asset('image/'.$filenametostore);
+                $input['imageUrl'] = URL::asset('image/'.$filenametostore);
             }
             /*
             $input = $request->all();
@@ -72,7 +72,7 @@ class RegisterController extends Controller
                 'phone1'=>$fields['phone1'],
                 'balance'=>500,
                 'isExp'=>$fields['isExp'],
-                'image' =>$input['imgUrl']
+                'image' =>$input['imageUrl']
             ]);
             $token = $user->createToken('loginToken')->plainTextToken;
             $response = [
