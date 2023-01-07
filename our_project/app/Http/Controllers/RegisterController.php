@@ -12,6 +12,8 @@ use App\Models\Experience;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -23,8 +25,8 @@ class RegisterController extends Controller
         try{
             $fields = $request->validate(
             [
+                // 'img'=>'image|required',
                 'name'=>'required|string',
-                'image'=>'image,mimes:jpeg,png,bmp,jpg,gif,svg',
                 'email'=>'required|string|unique:users,email',
                 'password'=>'required|string|min:6',
                 'phone1'=>'required|string',
@@ -40,16 +42,16 @@ class RegisterController extends Controller
                 ]
             ,200 );
         }
-            $image =$request->file('image');
-            $profile_image=null;
-            if($request->hasFile('image'))
-            {
-                $profile_image=time().'.'.$image->getClientOriginalExtension();
-                $image->move(public_path('image'),$profile_image);
-                $profile_image='image/'.$profile_image;
-            }
+        $input = $request->all();
+        if($request->hasFile('img'))
+        {
+            $filenameToStore = time().'.'.$request->img->extension();
+            $request->img->move(public_path('images'),$filenameToStore);
+            $input['imgUrl'] = URL::asset('images/'.$filenameToStore);
+        }
 
             $user = User::create([
+                // 'img' => $input['imgUrl'],
                 'name'=>$fields['name'],
                 'email'=>$fields['email'],
                 'password'=>bcrypt($fields['password']),
@@ -80,14 +82,11 @@ class RegisterController extends Controller
     public function registerExpert(Request $request)
     {
 
-
-
             try{
                 $fields = $request->validate(
                     [
                         'name'=>'required|string',
                         'email'=>'required|string|unique:users,email',
-                        'image'=>'image,mimes:jpeg,png,bmp,jpg,gif,svg',
                         'password'=>'required|string|min:6',
                         'phone1'=>'required|string',
                         'isExp'=>'required',
@@ -110,32 +109,7 @@ class RegisterController extends Controller
                 ,200 );
             }
 
-            $expertDuration =$fields['durations'];
-            $checker =array();
 
-            foreach ($expertDuration as $duration){
-                $start = $duration['from'];
-                $end = $duration['to'];
-                for($i=$start;$i<$end;$i++){
-                    if(in_array($i,$checker)){
-                        return response()->json([
-                            'status' => false,
-                            'message' => "There is duration collision ,please check your durations",
-                            'data' => ''
-                        ],200);
-                    }
-                    $checker[] = $i;
-                }
-            }
-
-            $image =$request->file('image');
-            $profile_image=null;
-            if($request->hasFile('image'))
-            {
-                $profile_image=time().'.'.$image->getClientOriginalExtension();
-                $image->move(public_path('image'),$profile_image);
-                $profile_image='image/'.$profile_image;
-            }
 
             $user = User::create([
                 'name'=>$fields['name'],
@@ -143,7 +117,7 @@ class RegisterController extends Controller
                 'password'=>bcrypt($fields['password']),
                 'phone1'=>$fields['phone1'],
                 'balance'=>500,
-                'isExp'=>1
+                'isExp'=>$fields['isExp']
             ]);
 
 
@@ -153,9 +127,7 @@ class RegisterController extends Controller
                 'user_id'=> $user->id,
                 'country'=>$fields['country'],
                 'city'=>$fields['city'],
-                'skills'=>$fields['skills'],
-                'rate' => 2.5,
-                'numRated' => 0
+                'skills'=>$fields['skills']
             ]);
 
             $WorksDays = $fields['days'];
@@ -171,10 +143,9 @@ class RegisterController extends Controller
                 'saturday' => $WorksDays[6]
             ]);
 
-
-
             $expertCats = $fields['categories'];
             $experiences = array();
+            //var_dump($expertCats);
             for($i=0;$i<sizeof($expertCats);$i++){
                 if($expertCats[$i]['category_id']<=5){
                     $experiences[] = Experience::create([
@@ -215,7 +186,23 @@ class RegisterController extends Controller
 
 
 
+            $expertDuration =$fields['durations'];
+            $checker =array();
 
+            foreach ($expertDuration as $duration){
+                $start = $duration['from'];
+                $end = $duration['to'];
+                for($i=$start;$i<$end;$i++){
+                    if(in_array($i,$checker)){
+                        return response()->json([
+                            'status' => false,
+                            'message' => "There is duration collision ,please check your durations",
+                            'data' => ''
+                        ],200);
+                    }
+                    $checker[] = $i;
+                }
+            }
 
 
 
@@ -256,4 +243,44 @@ class RegisterController extends Controller
 
 
     }
+
+    public function registerExpertPhoto(Request $request)
+{
+    $user1 = Auth::user();
+    try{
+        $fields = $request->validate(
+            [
+                'img'=>'image|required'
+            ]
+            );
+
+    }catch(Exception $e){
+        return response()->json(
+            [
+                'message' => $e->getMessage(),
+                'status' => false,
+                'data' => ""
+            ]
+        ,200 );
+    }
+    $input = $request->all();
+        if($request->hasFile('img'))
+        {
+            $filenameToStore = time().'.'.$request->img->extension();
+            $request->img->move(public_path('images'),$filenameToStore);
+            $input['imgUrl'] = URL::asset('images/'.$filenameToStore);
+        }
+        $id =$user1->id;
+        $user = User::find($id);
+        $user->img = $input['imgUrl'];
+        $user->save();
+        return response()->json(
+            [
+                'message' => "photo added successfully",
+                'status' => true
+            ]
+        ,201 );
 }
+
+}
+

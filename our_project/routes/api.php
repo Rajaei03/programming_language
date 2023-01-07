@@ -88,9 +88,13 @@ Route::middleware('auth:sanctum')->post('/createMessages',[ChatController::class
 
 //obada routes
 Route::post('/registerUser' , [RegisterController::class,'registerUser']);
+//Route::post('/registerExpertphoto' , [RegisterController::class,'registerExpertPhoto']);
 Route::get('/register' ,[RegisterController::class , 'index']);
 Route::get('/search/{name}',[SearchController::class ,'search']);
 Route::get('/searchbyname/{nameofexpert}',[SearchByNameController::class ,'searchbyname']);
 Route::get('/experience/{id}',[CardController::class ,'card']);
 Route::middleware('auth:sanctum')->post('/changefavourites' , [FavoriteController::class,'favorite']);
+Route::middleware('auth:sanctum')->get('/homewithtoken',[HomeController::class ,'homewithtoken']);
+Route::middleware('auth:sanctum')->get('/homewithtoken/{id}',[HomeController::class ,'homeFilterwithroken']);
+Route::middleware('auth:sanctum')->post('/registerExpertphoto' , [RegisterController::class,'registerExpertPhoto']);
 
