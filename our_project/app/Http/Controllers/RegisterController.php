@@ -89,7 +89,7 @@ class RegisterController extends Controller
                     [
                         'name'=>'required|string',
                         'email'=>'required|string|unique:users,email',
-                        'image'=>'image,mimes:jpeg,png,bmp,jpg,gif,svg',
+                        'img'=>'image',
                         'password'=>'required|string|min:6',
                         'phone1'=>'required|string',
                         'isExp'=>'required',
@@ -112,14 +112,13 @@ class RegisterController extends Controller
                 ,200 );
             }
 
-            $image =$request->file('image');
-            $profile_image=null;
-            if($request->hasFile('image'))
-            {
-                $profile_image=time().'.'.$image->getClientOriginalExtension();
-                $image->move(public_path('image'),$profile_image);
-                $profile_image='image/'.$profile_image;
-            }
+            $input = $request->all();
+        if($request->hasFile('img'))
+        {
+            $filenameToStore = time().'.'.$request->img->extension();
+            $request->img->move(public_path('images'),$filenameToStore);
+            $input['imgUrl'] = URL::asset('images/'.$filenameToStore);
+        }
 
             $user = User::create([
                 'name'=>$fields['name'],
@@ -127,6 +126,7 @@ class RegisterController extends Controller
                 'password'=>bcrypt($fields['password']),
                 'phone1'=>$fields['phone1'],
                 'balance'=>500,
+                'img' => $input['imgUrl'],
                 'isExp'=>$fields['isExp']
             ]);
 
