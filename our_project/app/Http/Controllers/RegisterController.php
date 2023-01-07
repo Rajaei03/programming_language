@@ -87,7 +87,7 @@ class RegisterController extends Controller
                     [
                         'name'=>'required|string',
                         'email'=>'required|string|unique:users,email',
-                        'img'=>'image',
+                        'img'=>'image|required',
                         'password'=>'required|string|min:6',
                         'phone1'=>'required|string',
                         'isExp'=>'required',
