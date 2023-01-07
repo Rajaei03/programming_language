@@ -127,6 +127,7 @@ class RegisterController extends Controller
                 'user_id'=> $user->id,
                 'country'=>$fields['country'],
                 'city'=>$fields['city'],
+                'rate' => 2.5,
                 'skills'=>$fields['skills']
             ]);
 
