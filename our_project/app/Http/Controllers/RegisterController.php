@@ -24,7 +24,7 @@ class RegisterController extends Controller
         try{
             $fields = $request->validate(
             [
-                'img'=>'image1|required',
+                'img'=>'image|required',
                 'name'=>'required|string',
                 'email'=>'required|string|unique:users,email',
                 'password'=>'required|string|min:6',
