@@ -82,8 +82,6 @@ class RegisterController extends Controller
     public function registerExpert(Request $request)
     {
 
-
-
             try{
                 $fields = $request->validate(
                     [
