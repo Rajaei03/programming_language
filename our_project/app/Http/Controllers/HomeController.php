@@ -36,7 +36,7 @@ class HomeController extends Controller
             $price=$experience->price;
             $type=$category->name;
             $rate=$expert->rate;
-
+            $image_url = $user->img;
 
 
 
@@ -46,6 +46,7 @@ class HomeController extends Controller
                 "price" => $price,
                 "type" => $type,
                 "rate" => $rate,
+                "image_url" => $image_url,
                 "favorite_status" => false
             ];
 
@@ -92,6 +93,7 @@ class HomeController extends Controller
                 $price=$experience->price;
                 $type=$category->name;
                 $rate=$expert->rate;
+                $image_url = $user->img;
 
 
                 $packet = [
@@ -100,6 +102,7 @@ class HomeController extends Controller
                     "price" => $price,
                     "type" => $type,
                     "rate" => $rate,
+                    "image_url" => $image_url,
                     "favorite_status" => false
                 ];
 
@@ -137,6 +140,7 @@ class HomeController extends Controller
                 $price=$experience->price;
                 $type=$category->name;
                 $rate=$expert->rate;
+                $image_url = $user->img;
 
 
                 $packet = [
@@ -145,6 +149,7 @@ class HomeController extends Controller
                     "price" => $price,
                     "type" => $type,
                     "rate" => $rate,
+                    "image_url" => $image_url,
                     "favorite_status" => false
                 ];
 
@@ -186,6 +191,7 @@ class HomeController extends Controller
             $price=$experience->price;
             $type=$category->name;
             $rate=$expert->rate;
+            $image_url = $user->img;
             $favorite_status = DB::table('favorites')
             ->where('user_id','Like', $user1->id)->where('experience_id','Like', $id )
             ->first();
@@ -197,6 +203,7 @@ class HomeController extends Controller
                     "price" => $price,
                     "type" => $type,
                     "rate" => $rate,
+                    "image_url" => $image_url,
                     "favorite_status" => false
                 ];
             }else
@@ -207,6 +214,7 @@ class HomeController extends Controller
                 "price" => $price,
                 "type" => $type,
                 "rate" => $rate,
+                "image_url" => $image_url,
                 "favorite_status" => true
             ];
             }
@@ -253,6 +261,7 @@ class HomeController extends Controller
                 $price=$experience->price;
                 $type=$category->name;
                 $rate=$expert->rate;
+                $image_url = $user->img;
                 $favorite_status = DB::table('favorites')
                 ->where('user_id','Like', $user1->id)->where('experience_id','Like', $id )
                 ->first();
@@ -264,6 +273,7 @@ class HomeController extends Controller
                         "price" => $price,
                         "type" => $type,
                         "rate" => $rate,
+                        "image_url" => $image_url,
                         "favorite_status" => false
                     ];
                 }else
@@ -274,6 +284,7 @@ class HomeController extends Controller
                     "price" => $price,
                     "type" => $type,
                     "rate" => $rate,
+                    "image_url" => $image_url,
                     "favorite_status" => true
                 ];
                 }
@@ -311,6 +322,7 @@ class HomeController extends Controller
                 $price=$experience->price;
                 $type=$category->name;
                 $rate=$expert->rate;
+                $image_url = $user->img;
                 $favorite_status = DB::table('favorites')
                 ->where('user_id','Like', $user1->id)->where('experience_id','Like', $id )
                 ->first();
@@ -322,6 +334,7 @@ class HomeController extends Controller
                         "price" => $price,
                         "type" => $type,
                         "rate" => $rate,
+                        "image_url" => $image_url,
                         "favorite_status" => false
                     ];
                 }else
@@ -332,6 +345,7 @@ class HomeController extends Controller
                     "price" => $price,
                     "type" => $type,
                     "rate" => $rate,
+                    "image_url" => $image_url,
                     "favorite_status" => true
                 ];
                 }

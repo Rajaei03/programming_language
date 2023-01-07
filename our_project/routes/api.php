@@ -94,7 +94,9 @@ Route::get('/search/{name}',[SearchController::class ,'search']);
 Route::get('/searchbyname/{nameofexpert}',[SearchByNameController::class ,'searchbyname']);
 Route::get('/experience/{id}',[CardController::class ,'card']);
 Route::middleware('auth:sanctum')->post('/changefavourites' , [FavoriteController::class,'favorite']);
+Route::middleware('auth:sanctum')->get('/showfavourites' , [FavoriteController::class,'showfavorite']);
 Route::middleware('auth:sanctum')->get('/homewithtoken',[HomeController::class ,'homewithtoken']);
 Route::middleware('auth:sanctum')->get('/homewithtoken/{id}',[HomeController::class ,'homeFilterwithroken']);
 Route::middleware('auth:sanctum')->post('/registerExpertphoto' , [RegisterController::class,'registerExpertPhoto']);
+
 

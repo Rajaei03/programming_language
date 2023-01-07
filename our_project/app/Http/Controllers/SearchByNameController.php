@@ -22,6 +22,7 @@ foreach ($users as $user)
     $exps = DB::table('experiences')->where('user_id' , 'Like' , $user->id)->get();
     foreach ($exps as $exp)
     {
+        $expert = DB::table('experts')->where('user_id','=',$exp->user_id)->first();
         $cats = DB::table('categories')->where('id' , 'Like' , $exp->category_id)->get();
         foreach ($cats as $cat)
         {
@@ -29,13 +30,34 @@ foreach ($users as $user)
             $name = $user->name;
             $price=$exp->price;
             $type=$cat->name;
-            $packet =
-            [
-                'id' => $id,
-                "name" => $name,
-                "price" => $price,
-                "type" => $type
-            ];
+            $rate=$expert->rate;
+            $image_url = $user->img;
+            $favorite_status = DB::table('favorites')
+                ->where('user_id','Like', $user->id)->where('experience_id','Like', $id )
+                ->first();
+                if($favorite_status==null)
+                {
+                    $packet = [
+                        'id' => $id,
+                        "name" => $name,
+                        "price" => $price,
+                        "type" => $type,
+                        "rate" => $rate,
+                        "image_url" => $image_url,
+                        "favorite_status" => false
+                    ];
+                }else
+                {
+                $packet = [
+                    'id' => $id,
+                    "name" => $name,
+                    "price" => $price,
+                    "type" => $type,
+                    "rate" => $rate,
+                    "image_url" => $image_url,
+                    "favorite_status" => true
+                ];
+                }
             $data[] = $packet;
         }
     }
@@ -49,3 +71,6 @@ return response()->json([
 
     }
 }
+
+
+
