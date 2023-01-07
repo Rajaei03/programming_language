@@ -24,7 +24,7 @@ class RegisterController extends Controller
         try{
             $fields = $request->validate(
             [
-                'img'=>'image',
+                'img'=>'image1|required',
                 'name'=>'required|string',
                 'email'=>'required|string|unique:users,email',
                 'password'=>'required|string|min:6',
@@ -50,7 +50,7 @@ class RegisterController extends Controller
         }
 
             $user = User::create([
-                'img' => $input['imgUrl'],
+                // 'img' => $input['imgUrl'],
                 'name'=>$fields['name'],
                 'email'=>$fields['email'],
                 'password'=>bcrypt($fields['password']),
