@@ -33,7 +33,7 @@ class ChatController extends Controller
 
         if($chatVal != null){
             return response([
-                'status' => false,
+                'status' => true,
                 'message' => "you already have chat with this person",
                 'data' => $chatVal
             ]);
