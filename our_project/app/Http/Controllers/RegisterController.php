@@ -57,8 +57,7 @@ class RegisterController extends Controller
                 'password'=>bcrypt($fields['password']),
                 'phone1'=>$fields['phone1'],
                 'balance'=>500,
-                'isExp'=>$fields['isExp'],
-
+                'isExp'=>0
             ]);
             $token = $user->createToken('loginToken')->plainTextToken;
             $response = [
@@ -118,7 +117,6 @@ class RegisterController extends Controller
                 'password'=>bcrypt($fields['password']),
                 'phone1'=>$fields['phone1'],
                 'balance'=>500,
-                // 'img' => $input['imgUrl'],
                 'isExp'=>$fields['isExp']
             ]);
 
