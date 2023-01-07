@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -24,7 +25,7 @@ class RegisterController extends Controller
         try{
             $fields = $request->validate(
             [
-                'img'=>'image|required',
+                // 'img'=>'image|required',
                 'name'=>'required|string',
                 'email'=>'required|string|unique:users,email',
                 'password'=>'required|string|min:6',
@@ -87,7 +88,6 @@ class RegisterController extends Controller
                     [
                         'name'=>'required|string',
                         'email'=>'required|string|unique:users,email',
-                        'img'=>'image|required',
                         'password'=>'required|string|min:6',
                         'phone1'=>'required|string',
                         'isExp'=>'required',
@@ -110,13 +110,7 @@ class RegisterController extends Controller
                 ,200 );
             }
 
-            $input = $request->all();
-        if($request->hasFile('img'))
-        {
-            $filenameToStore = time().'.'.$request->img->extension();
-            $request->img->move(public_path('images'),$filenameToStore);
-            $input['imgUrl'] = URL::asset('images/'.$filenameToStore);
-        }
+
 
             $user = User::create([
                 'name'=>$fields['name'],
@@ -124,7 +118,7 @@ class RegisterController extends Controller
                 'password'=>bcrypt($fields['password']),
                 'phone1'=>$fields['phone1'],
                 'balance'=>500,
-                'img' => $input['imgUrl'],
+                // 'img' => $input['imgUrl'],
                 'isExp'=>$fields['isExp']
             ]);
 
@@ -251,4 +245,44 @@ class RegisterController extends Controller
 
 
     }
+
+    public function registerExpertPhoto(Request $request)
+{
+    $user1 = Auth::user();
+    try{
+        $fields = $request->validate(
+            [
+                'img'=>'image|required'
+            ]
+            );
+
+    }catch(Exception $e){
+        return response()->json(
+            [
+                'message' => $e->getMessage(),
+                'status' => false,
+                'data' => ""
+            ]
+        ,200 );
+    }
+    $input = $request->all();
+        if($request->hasFile('img'))
+        {
+            $filenameToStore = time().'.'.$request->img->extension();
+            $request->img->move(public_path('images'),$filenameToStore);
+            $input['imgUrl'] = URL::asset('images/'.$filenameToStore);
+        }
+        $id =$user1->id;
+        $user = User::find($id);
+        $user->img = $input['imgUrl'];
+        $user->save();
+        return response()->json(
+            [
+                'message' => "photo added successfully",
+                'status' => true
+            ]
+        ,201 );
 }
+
+}
+
