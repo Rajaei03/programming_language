@@ -144,7 +144,8 @@ class HomeController extends Controller
                     "name" => $name,
                     "price" => $price,
                     "type" => $type,
-                    "rate" => $rate
+                    "rate" => $rate,
+                    "favorite_status" => false
                 ];
 
                 $data[] = $packet;
@@ -255,7 +256,6 @@ class HomeController extends Controller
                 $favorite_status = DB::table('favorites')
                 ->where('user_id','Like', $user1->id)->where('experience_id','Like', $id )
                 ->first();
-                return $favorite_status;
                 if($favorite_status==null)
                 {
                     $packet = [
@@ -311,16 +311,30 @@ class HomeController extends Controller
                 $price=$experience->price;
                 $type=$category->name;
                 $rate=$expert->rate;
-
-
+                $favorite_status = DB::table('favorites')
+                ->where('user_id','Like', $user1->id)->where('experience_id','Like', $id )
+                ->first();
+                if($favorite_status==null)
+                {
+                    $packet = [
+                        'id' => $id,
+                        "name" => $name,
+                        "price" => $price,
+                        "type" => $type,
+                        "rate" => $rate,
+                        "favorite_status" => false
+                    ];
+                }else
+                {
                 $packet = [
                     'id' => $id,
                     "name" => $name,
                     "price" => $price,
                     "type" => $type,
-                    "rate" => $rate
+                    "rate" => $rate,
+                    "favorite_status" => true
                 ];
-
+                }
                 $data[] = $packet;
 
             }
@@ -331,8 +345,14 @@ class HomeController extends Controller
                 'status' => true,
                 'data' => $data
             ],200);
+
+
+
+            return response()->json([
+                'status' => true,
+                'data' => $data
+            ],200);
         }
     }
-
 
 }
