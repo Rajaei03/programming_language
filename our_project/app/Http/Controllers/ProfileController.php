@@ -50,6 +50,7 @@ class ProfileController extends Controller
                 'user_id' => $user_id,
                 'category_id' => $category_id,
                 'category_name' => $category_name,
+                'img' => $user->image,
                 'price' => $price
             ];
             $experiencesReady[] = $packet;
