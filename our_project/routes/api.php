@@ -56,7 +56,7 @@ Route::middleware('auth:sanctum')->post('/logout',[LoginController::class ,'logo
 Route::middleware('auth:sanctum')->post('/createChat',[ChatController::class ,'createChat']);
 Route::middleware('auth:sanctum')->get('/getChat',[ChatController::class ,'getChat']);
 
-Route::middleware('auth:sanctum')->get('/getMessages',[ChatController::class ,'getMessage']);
+Route::middleware('auth:sanctum')->get('/getMessages/{chat_id}',[ChatController::class ,'getMessage']);
 Route::middleware('auth:sanctum')->post('/createMessages',[ChatController::class ,'createMessage']);
 
 

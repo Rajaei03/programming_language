@@ -113,16 +113,14 @@ class ChatController extends Controller
 
 
 
-    public function getMessage(Request $request)
+    public function getMessage($chat_id)
     {
         $user = Auth::user();
 
-        $fields = $request->validate([
-            'chat_id' => 'required'
-        ]);
+
 
         $messages = DB::table('messages')
-                        ->where('chat_id','=',$fields['chat_id'])
+                        ->where('chat_id','=',$chat_id)
                         ->get();
 
 
