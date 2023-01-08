@@ -94,6 +94,7 @@ class ChatController extends Controller
 
             $packet = [
                 'name' => $name,
+                'user_photo' => $chatUser->image,
                 'lastMessage' => $lastMessageMessage,
                 'lastMessageTime' => $lastMessageTime
             ];
