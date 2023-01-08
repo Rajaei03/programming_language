@@ -137,7 +137,8 @@ class ChatController extends Controller
             $packet = [
                 'message' => $message->message,
                 'isMyMessage' => $myMessage,
-                'messageDate' => $message->created_at
+                'messageDate' => $message->created_at,
+                'chat_id' => $chat_id
             ];
 
             $messagesReady[] = $packet;
